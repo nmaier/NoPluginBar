@@ -25,7 +25,7 @@ resources = [
     "icon.png", "icon64.png",
     "LICENSE"
     ]
-destination = "extension.xpi"
+destination = "nopluginbar.xpi"
 
 def get_js_requires(scripts):
     known = set()

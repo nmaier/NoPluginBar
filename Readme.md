@@ -1,4 +1,6 @@
-Lightweight Extension SDK (miniSDK)
+NoPluginBar
 ===
 
-This is my personal bootstrap to develop restartless but non-jetpack Mozilla extensions
+Makes the plugin notification disappear entirely.
+
+Based on [ExtSDK](https://github.com/nmaier/extsdk).

@@ -3,17 +3,35 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-const {registerOverlay, unloadWindow} = require("windows");
-registerOverlay(
-  "overlay.xul",
-  "chrome://browser/content/browser.xul",
-  function main(window, document) {
-    function $(id) document.getElementById(id);
-    function $$(q) document.querySelector(q);
-    function $$$(q) document.querySelectorAll(q);
-    function fe() document.commandDispatcher.focusedElement;
+const {watchWindows, unloadWindow} = require("windows");
 
-    log(LOG_INFO, "all good!");
+function appendNotification(message, type) {
+  if (type == "plugin-hidden") {
+    log(LOG_DEBUG, "killed notification");
+    return;
+  }
+  return this._nopluginbar_appendNotification.apply(this, arguments);
+}
+
+watchWindows("chrome://browser/content/browser.xul", function(window) {
+  const {gBrowser} = window;
+  const getNotificationBox = gBrowser.getNotificationBox;
+  gBrowser.getNotificationBox = function() {
+    let rv = getNotificationBox.apply(gBrowser, arguments);
+    if (rv && rv.appendNotification &&
+        rv.appendNotification !== appendNotification) {
+      rv._nopluginbar_appendNotification = rv.appendNotification;
+      rv.appendNotification = appendNotification;
+      unloadWindow(window, function() {
+        rv.appendNotification = rv._nopluginbar_appendNotification;
+      });
+      log(LOG_DEBUG, "hijacked appendNotification");
+    }
+    return rv;
+  };
+  unloadWindow(window, function() {
+    gBrowser.getNotificationBox = getNotificationBox;
+  });
 });
 
 /* vim: set et ts=2 sw=2 : */

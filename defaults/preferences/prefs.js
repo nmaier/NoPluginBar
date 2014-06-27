@@ -1,1 +1,1 @@
-pref("extensions.ID.loglevel", 0x7fffffff);
+pref("extensions.nopluginbar@tn123.org.loglevel", 0x7fffffff);
