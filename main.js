@@ -3,7 +3,7 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-const {watchWindows, unloadWindow} = require("windows");
+const {watchWindows, unloadWindow} = require("sdk/windows");
 
 function appendNotification(message, type) {
   if (type == "plugin-hidden") {
