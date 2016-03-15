@@ -7,7 +7,7 @@
     <em:id>nopluginbar@tn123.org</em:id>
     <em:name>NoPluginBar</em:name>
     <em:description>Makes the plugin notification bar disappear entirely…</em:description>
-    <em:version>3</em:version>
+    <em:version>4</em:version>
     <em:creator>Nils Maier</em:creator>
     <em:homepageURL>https://github.com/nmaier/NoPluginBar</em:homepageURL>
 
